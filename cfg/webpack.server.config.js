@@ -101,8 +101,6 @@ module.exports = {
   devtool: IS_DEV ? 'eval' : false,
   plugins: [
     new DefinePlugin({
-      // 'process.env.CLIENT_ID': `'${process.env.CLIENT_ID}'`,
-      // 'process.env.CLIENT_SECRET': `'${process.env.CLIENT_SECRET}'`,
       'process.env.SITE': `'${process.env.SITE}'`,
       'process.env.PORT': `'${process.env.PORT}'`,
     }),

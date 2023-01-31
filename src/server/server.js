@@ -19,8 +19,7 @@ const app = express()
 
 if (process.env.NODE_ENV === "production") {
   app.use(compression())
-  app.use(helmet({contentSecurityPolicy: false})
-  )
+  app.use(helmet({contentSecurityPolicy: false}))
 }
 
 app.use("/static", express.static("./app/client"))

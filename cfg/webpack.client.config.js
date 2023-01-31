@@ -17,7 +17,6 @@ const DEV_PLUGINGS = [
 
 const COMMON_PLUGINGS = [
   new DefinePlugin({
-    // 'process.env.CLIENT_ID': `'${process.env.CLIENT_ID}'`,
     'process.env.SITE': `'${process.env.SITE}'`,
     'process.env.PORT': `'${process.env.PORT}'`,
   }),
