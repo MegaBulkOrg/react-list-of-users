@@ -1,0 +1,176 @@
+.header
+    background-color: #512689
+
+.headerContainer,
+.userInfoContainer
+    display: flex
+    max-width: 1701px
+    padding-left: 188px
+    padding-right: 188px
+    padding-bottom: 64px
+    margin: 0 auto
+    @media (max-width:830px)
+        padding-left: 16px
+        padding-right: 16px
+
+.headerContainer
+    padding-top: 39px
+    padding-bottom: 39px
+    @media (max-width:830px)
+        flex-direction: column-reverse
+        align-items: center
+        padding-top: 64px
+        padding-bottom: 64px
+
+.exitBtnDesktop
+    position: absolute
+    top: 31px
+    right: 80px
+    background: transparent
+    font-size: 16px
+    line-height: 22px
+    letter-spacing: 0em
+    color: #f8f8f8
+    padding: 8px 16px
+    border: 1px solid #f8f8f8
+    border-radius: 10px
+    cursor: pointer
+    transition-property: color, background
+    transition-duration: .3s
+    transition-timing-function: ease
+    @media (max-width:830px)
+        display: none
+
+.exitBtnDesktop:hover:not(:focus-visible)
+    color: #512689
+    background: #f8f8f8
+
+.exitBtnDesktop:focus-visible
+    color: #512689
+    background: #f8f8f8
+
+.exitBtnDesktop:active:not(:focus-visible)
+    color: #512689
+    background: #f8f8f8
+
+.exitBtnMobile
+    display: none
+    position: absolute
+    top: 23px
+    right: 27px
+    background: transparent
+    border: none
+    cursor: pointer
+    @media (max-width:830px)
+        display: block
+
+.backBtnDesktop
+    position: absolute
+    top: 32px
+    left: 90px
+    background: transparent
+    font-size: 16px
+    line-height: 22px
+    letter-spacing: 0em
+    color: #f8f8f8
+    padding: 8px 16px
+    border: 1px solid #f8f8f8
+    border-radius: 10px
+    cursor: pointer
+    transition-property: color, background
+    transition-duration: .3s
+    transition-timing-function: ease
+    @media (max-width:830px)
+        display: none
+
+.backBtnDesktop:hover:not(:focus-visible)
+    color: #512689
+    background: #f8f8f8
+
+.backBtnDesktop:focus-visible
+    color: #512689
+    background: #f8f8f8
+
+.backBtnDesktop:active:not(:focus-visible)
+    color: #512689
+    background: #f8f8f8
+
+.backBtnMobile
+    display: none
+    position: absolute
+    top: 25px
+    left: 33px
+    background: transparent
+    border: none
+    cursor: pointer
+    @media (max-width:830px)
+        display: block
+
+.userAvatar
+    flex-shrink: 0
+    width: 187px
+    border-radius: 100px
+
+.userHeader
+    display: flex
+    flex-direction: column
+    justify-content: center
+    margin-left: 32px
+    @media (max-width:830px)
+        margin-left: 0
+        margin-bottom: 16px
+        text-align: center
+
+.userName
+    font-size: 64px
+    line-height: 75px
+    letter-spacing: 0em
+    color: #ffffff
+    @media (max-width:830px)
+        font-size: 36px
+        line-height: 42px
+
+.userStatus
+    margin-top: 16px
+    max-width: 840px
+    font-size: 32px
+    line-height: 38px
+    letter-spacing: 0em
+    color: #f8f8f8
+    @media (max-width:830px)
+        font-size: 20px
+        line-height: 24px
+
+.userInfoContainer
+    padding-top: 49px
+    @media (max-width:1050px)
+        padding-left: 25px
+        padding-right: 25px
+    @media (max-width:830px)
+        flex-direction: column-reverse
+        padding-top: 33px
+
+.userAbout
+    max-width: 630px
+
+.userAbout p
+    margin-bottom: 16px
+    font-size: 16px
+    line-height: 22px
+    letter-spacing: 0em
+
+.userContactInfo
+    padding-left: 131px
+    @media (max-width:1000px)
+        padding-left: 50px
+    @media (max-width:830px)
+        padding-left: 0
+        padding-bottom: 4px
+
+.userContactInfo p
+    display: flex
+    align-items: center
+    margin-bottom: 30px
+
+.userContactInfo span
+    margin-right: 10px

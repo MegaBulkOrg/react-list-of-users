@@ -1,0 +1,146 @@
+.header
+    background-color: #512689
+
+.headerContainer,
+.usersListContainer
+    max-width: 1701px
+    padding-left: 80px
+    padding-right: 80px
+    margin: 0 auto
+    @media (max-width:830px)
+        padding-left: 35px
+        padding-right: 35px
+
+.headerContainer
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    padding-top: 64px
+    padding-bottom: 64px
+
+.exitBtnDesktop
+    position: absolute
+    top: 40px
+    right: 90px
+    background: transparent
+    font-size: 16px
+    line-height: 22px
+    letter-spacing: 0em
+    color: #f8f8f8
+    padding: 8px 16px
+    border: 1px solid #f8f8f8
+    border-radius: 10px
+    cursor: pointer
+    transition-property: color, background
+    transition-duration: .3s
+    transition-timing-function: ease
+    @media (max-width:830px)
+        display: none
+
+.exitBtnDesktop:hover:not(:focus-visible),
+.exitBtnDesktop:focus-visible,
+.exitBtnDesktop:active:not(:focus-visible)
+    color: #512689
+    background: #f8f8f8
+
+.exitBtnMobile
+    display: none
+    position: absolute
+    top: 23px
+    right: 27px
+    background: transparent
+    border: none
+    cursor: pointer
+    @media (max-width:830px)
+        display: block
+
+.pageTitle
+    font-size: 64px
+    line-height: 75px
+    letter-spacing: 0em
+    text-align: center
+    color: #ffffff
+    @media (max-width:830px)
+        font-size: 36px
+        line-height: 42px
+
+.pageDescription
+    margin-top: 16px
+    max-width: 840px
+    font-size: 20px
+    line-height: 23px
+    letter-spacing: 0em
+    text-align: center
+    color: #f8f8f8
+    @media (max-width:830px)
+        font-size: 16px
+        line-height: 19px
+
+.usersListContainer
+    padding-top: 48px
+    padding-bottom: 80px
+
+.users
+    display: grid
+    grid-template-columns: repeat(4, 1fr)
+    grid-template-rows: repeat(2, auto)
+    gap: 20px
+    @media (max-width:1220px)
+        grid-template-columns: repeat(3, 1fr)
+    @media (max-width:1000px)
+        grid-template-columns: repeat(2, 1fr)
+    @media (max-width:730px)
+        grid-template-columns: repeat(1, 1fr)
+
+.info
+    font-size: 20px
+    line-height: 23px
+    letter-spacing: 0em
+    text-align: center
+    @media (max-width:830px)
+        font-size: 16px
+        line-height: 19px
+
+.loadMoreBtnContainer
+    display: flex
+    justify-content: center
+    margin-top: 56px
+
+.loadMoreBtn
+    background: transparent
+    border: 1px solid #151317
+    padding: 9px 16px
+    font-size: 16px
+    line-height: 22px
+    letter-spacing: 0em
+    color: #151317
+    border-radius: 10px
+    cursor: pointer
+    transition-property: color, background, border
+    transition-duration: .3s
+    transition-timing-function: ease
+
+.loadMoreBtn span
+    margin-left: 11px
+
+.loadMoreBtn svg
+    transition: transform .3s ease
+
+.loadMoreBtn svg path
+    transition: fill .3s ease
+
+.loadMoreBtn:hover:not(:focus-visible),
+.loadMoreBtn:focus-visible,
+.loadMoreBtn:active:not(:focus-visible)
+    color: #f8f8f8
+    background: #512689
+    border: none
+
+.loadMoreBtn:hover:not(:focus-visible) svg path,
+.loadMoreBtn:focus-visible svg path,
+.loadMoreBtn:active:not(:focus-visible) svg path
+    fill: #f8f8f8
+
+.loadMoreBtn:active:not(:focus-visible) svg
+    transform: rotate(-90deg)
