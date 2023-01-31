@@ -4,9 +4,9 @@
   "description": "WebPack assembly for React projects",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development node ./bin/dev.js",
-    "prod": "cross-env NODE_ENV=production SITE=89.253.220.134 PORT=1000 node ./bin/dev.js",
-    "test": "jest"
+    "antipoff-dev": "cross-env NODE_ENV=development node ./bin/dev.js",
+    "antipoff-prod": "cross-env NODE_ENV=production SITE=89.253.220.134 PORT=1000 node ./bin/dev.js",
+    "antipoff-test": "jest"
   },
   "author": "BaoLuo <ceo@megabulk.ru>",
   "license": "ISC",
