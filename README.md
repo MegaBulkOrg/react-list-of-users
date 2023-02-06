@@ -15,9 +15,7 @@
 
 - WebPack
 - React
-- Redux
+- Redux Thunk
+- React Router
 - TypeScript
 - SSR
-- React Router
-
-Посмотреть приложение в действии можно по [ссылке](http://89.253.220.134:1000).
