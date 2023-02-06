@@ -35,7 +35,7 @@ hmrServer.use(webpackHotMiddleware(clientCompiler, {
 
 // запускаем сервер
 hmrServer.listen(3001, () => {
-    console.log('Сервер HMR успешно запушен');
+    console.log('Сервер HMR успешно запушен на порту 3001');
 })
 
 const compiler = webpack(webpackServerConfig)
