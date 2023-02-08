@@ -7,13 +7,18 @@ import { authorizationStatus } from 'Store/authorization';
 import styles from './login.sass';
 
 export function Login() {
-  const dispatch = useDispatch<any>()
+  // перенаправление на случай если пользователь уже в системе
+  const [entered, setEntered] = useState(false)
   const navigation = useNavigate()
+  useEffect(() => {
+    if (localStorage.getItem('user') !== null) navigation('/')
+  },[])
+
+  const dispatch = useDispatch<any>()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [firstSubmit, setFirstSubmit] = useState(false)
   let result = []
-  const [entered, setEntered] = useState(false)
   // реф для глазика
   const refPassword = useRef<HTMLInputElement>(null)
   // ловим значения полей
@@ -37,10 +42,7 @@ export function Login() {
       setEntered(true)
     }
   }
-  // перенаправление на случай если пользователь уже в системе
-  useEffect(() => {
-    if(entered) navigation('/')
-  }, [entered])
+    
   // функция для кнопки перехода на страницу регистрации
   function goToSignUp() {
     navigation('/sign-up')
