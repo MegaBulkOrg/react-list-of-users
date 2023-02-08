@@ -7,8 +7,7 @@ import { authorizationStatus } from 'Store/authorization';
 import styles from './login.sass';
 
 export function Login() {
-  // перенаправление на случай если пользователь уже в системе
-  const [entered, setEntered] = useState(false)
+  // перенаправление на случай если пользователь уже в системе 
   const navigation = useNavigate()
   useEffect(() => {
     if (localStorage.getItem('user') !== null) navigation('/')
@@ -17,7 +16,9 @@ export function Login() {
   const dispatch = useDispatch<any>()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+    
   const [firstSubmit, setFirstSubmit] = useState(false)
+  
   let result = []
   // реф для глазика
   const refPassword = useRef<HTMLInputElement>(null)
@@ -39,7 +40,7 @@ export function Login() {
     if(result.length !== 0) {
       dispatch(authorizationStatus(true))
       localStorage.setItem('user', result[0][0])
-      setEntered(true)
+      navigation('/')
     }
   }
     
@@ -68,9 +69,9 @@ export function Login() {
             <div className={styles.formGroup}>
               <label htmlFor='inputEmail' className={styles.formLabel}>E-mail</label>
               <input type='email' value={email} 
-                className={!entered && firstSubmit ? styles.formControlError : styles.formControl} 
+                className={firstSubmit ? styles.formControlError : styles.formControl} 
               id='inputEmail' placeholder='example@mail.ru' onChange={handleChangeEmail} required />
-              {!entered && firstSubmit &&
+              {firstSubmit &&
                 <p className={styles.formErrorMsg}>Возможно, Вы указали неправильный e-mail</p>
               }
             </div>
@@ -78,10 +79,10 @@ export function Login() {
             <div className={styles.formGroup}>
               <label htmlFor='inputPassword' className={styles.formLabel}>Пароль</label>
               <input type='password' value={password} ref={refPassword} autoComplete='on'
-                className={!entered && firstSubmit ? styles.formControlError : styles.formControl} 
+                className={firstSubmit ? styles.formControlError : styles.formControl} 
               id='inputPassword' placeholder='******' onChange={handleChangePassword} required />
               <Icon name={EIcon.formEye} width={24} height={24} action={() => showPassword(refPassword.current)} />
-              {!entered && firstSubmit &&
+              {firstSubmit &&
                 <p className={styles.formErrorMsg}>Возможно, Вы указали неправильный пароль</p>
               }
             </div>

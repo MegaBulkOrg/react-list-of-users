@@ -1,13 +1,11 @@
 import users from 'Assets/users.json';
 import { Icon } from 'Icons/Icon';
-import React, { ChangeEvent, FormEvent, useRef, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './regform.sass';
 
 export function RegForm() {
-  // системные
-  const dispatch = useDispatch<any>()
+  // для возможности перейти на страницу входа
   const navigation = useNavigate()
   // состояния для полей и их ошибок
   const [name, setName] = useState('')
@@ -65,7 +63,7 @@ export function RegForm() {
 
   // очистка формы после успешной отправки
   useEffect(() => {
-    if (firstSubmit&& nameVerified && emailVerified && passwordVerified && passwordConfirmVerified && duplicatedUsersVerified) {
+    if (firstSubmit && nameVerified && emailVerified && passwordVerified && passwordConfirmVerified && duplicatedUsersVerified) {
       setName('')
       setEmail('')
       setPassword('')
