@@ -12,20 +12,20 @@ export interface IUserInfoProps {
 }
 
 export function UserInfo() {  
-  const dispatch = useDispatch<any>()
+  // проверка авторизации
   const [isAuth, setIsAuth] = useState(false) 
   const navigation = useNavigate()
+  useEffect(() => {
+    localStorage.getItem('user') === null ? navigation('/login') :  setIsAuth(true)
+  },[isAuth])
+
   const userData = useSelector<RootState, IUserInfoProps>((state) => state.currentUser.currentUserInfo)
   // const loading = useSelector<RootState, boolean>((state) => state.currentUser.loading)
   // const error = useSelector<RootState, string>((state) => state.currentUser.error)  
   const { user } = useParams()
+  const dispatch = useDispatch<any>()
   useEffect(() => {dispatch(currentUserRequestAsync(user))},[])
-  
-  // проверка авторизации
-  useEffect(() => {
-    localStorage.getItem('user') === null ? navigation('/login') :  setIsAuth(true)
-  },[isAuth])
-  
+    
   function exit() {
     dispatch(authorizationStatus(false))
     localStorage.removeItem('user')

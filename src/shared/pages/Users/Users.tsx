@@ -12,11 +12,12 @@ import styles from './users.sass';
 export function Users() {  
   // проверка авторизации
   const [isAuth, setIsAuth] = useState(false)
+  const navigation = useNavigate()
   useEffect(() => {
     localStorage.getItem('user') === null ? navigation('/login') :  setIsAuth(true)
   },[isAuth])
-  // состояния
-  const navigation = useNavigate()  
+  
+  // состояния  
   const dispatch = useDispatch<any>()
   const [nextPageNo, setNextPageNo] = useState(1)
   const [loadingButtonAction, setLoadingButtonAction] = useState(true)
