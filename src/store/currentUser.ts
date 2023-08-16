@@ -1,7 +1,7 @@
+import { IUserInfoProps } from 'Shared/pages/UserInfo';
 import axios from 'axios';
 import { Action, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { IUserInfoProps } from 'Shared/pages/UserInfo';
 import { RootState } from './store';
 
 export const CURRENT_USER_REQUEST = 'CURRENT_USER_REQUEST'
@@ -51,6 +51,5 @@ export const currentUserRequestAsync = (id:string | undefined): ThunkAction<void
         })
         .catch((error) => {
             dispatch(currentUserRequestError(String(error)))
-            // localStorage.setItem('token', 'undefined')
         })
 }

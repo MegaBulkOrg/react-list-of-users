@@ -1,5 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+
 const IS_DEV = process.env.NODE_ENV === 'development';
 const GLOBAL_CSS_REGEXP = /\.global.css$/;
 const { DefinePlugin } = require('webpack');
@@ -24,7 +25,7 @@ module.exports = {
     } 
   },
   module: {
-    rules: [
+    rules: [      
       {
         test: /\.[jt]sx?$/,
         use: ['ts-loader'],
@@ -46,10 +47,10 @@ module.exports = {
               modules: {
                 mode: 'local',
                 localIdentName: '[name]__[local]--[hash:base64:5]',
-              },
-              onlyLocals: true,
-            },
-          },
+                exportOnlyLocals: true
+              }
+            }
+          }
         ],
         exclude: GLOBAL_CSS_REGEXP,
       },
@@ -66,9 +67,9 @@ module.exports = {
               modules: {
                 mode: 'local',
                 localIdentName: '[name]__[local]--[hash:base64:5]',
-              },
-              onlyLocals: true,
-            },
+                exportOnlyLocals: true
+              }
+            }
           },
           "sass-loader"
         ],
@@ -82,9 +83,9 @@ module.exports = {
               modules: {
                 mode: 'local',
                 localIdentName: '[name]__[local]--[hash:base64:5]',
-              },
-              onlyLocals: true,
-            },
+                exportOnlyLocals: true
+              }
+            }
           },
           "less-loader"
         ],
@@ -103,6 +104,7 @@ module.exports = {
     new DefinePlugin({
       'process.env.SITE': `'${process.env.SITE}'`,
       'process.env.PORT': `'${process.env.PORT}'`,
-    }),
-  ],
+      'process.env.PORT_HMR': `'${process.env.PORT_HMR}'`
+    })
+  ]
 };

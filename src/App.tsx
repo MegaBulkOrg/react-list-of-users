@@ -1,50 +1,52 @@
-import React, { useEffect, useState } from "react";
-import { hot } from "react-hot-loader/root";
-import { Provider, useDispatch } from "react-redux";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { applyMiddleware, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
+import { NotFound } from "Shared/NotFound";
 import { Login } from "Shared/pages/Login";
 import { RegForm } from "Shared/pages/RegForm";
 import { UserInfo } from "Shared/pages/UserInfo";
 import { Users } from "Shared/pages/Users";
-import { authorizationStatus } from "Store/authorization";
+import { rootReducer } from "Store/store";
+import React from "react";
+import { Provider } from "react-redux";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { StaticRouter } from "react-router-dom/server";
+import { applyMiddleware, createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
 import "./global.css";
-
-import { NotFound } from "./shared/NotFound";
-import { rootReducer } from "./store/store";
 
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
 
-function AppContent() {
-  const dispatch = useDispatch<any>()
-  const isAuth = localStorage.getItem('user')
-  if(isAuth !== null) dispatch(authorizationStatus(true))
-
+function AppContent() {    
   return (
-    <BrowserRouter>            
-      <Routes>
-        <Route path="/login" element={<Login/>} />
-        <Route path="/sign-up" element={<RegForm/>} />
-        <Route path="/" element={<Users/>} />
-        <Route path="/users" element={<Navigate to="/" />} />
-        <Route path="/users/:user" element={<UserInfo/>} />
-        <Route path="*" element={<NotFound/>} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/login" element={<Login/>} />
+      <Route path="/sign-up" element={<RegForm/>} />
+      <Route path="/" element={<Users/>} />
+      <Route path="/users" element={<Navigate to="/" />} />
+      <Route path="/users/:user" element={<UserInfo/>} />
+      <Route path="*" element={<NotFound/>} />
+    </Routes>
   );
 }
 
-function AppComponent() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  return <Provider store={store}>{mounted && <AppContent />}</Provider>;
-}
+export function ClientApp() {    
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </Provider>
+  );
+};
 
-export const App = hot(() => <AppComponent />);
+export const ServerApp = (url: string) => {
+  return (
+    <Provider store={store}>
+      <StaticRouter location={url}>
+        <AppContent />
+      </StaticRouter>
+    </Provider>
+  );
+};

@@ -1,9 +1,7 @@
 import users from 'Assets/users.json';
 import { Icon } from 'Icons/Icon';
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { authorizationStatus } from 'Store/authorization';
 import styles from './login.sass';
 
 export function Login() {
@@ -13,7 +11,6 @@ export function Login() {
     if (localStorage.getItem('user') !== null) navigation('/')
   },[])
 
-  const dispatch = useDispatch<any>()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
     
@@ -38,7 +35,6 @@ export function Login() {
       return user[1].email === email && user[1].password === password 
     })
     if(result.length !== 0) {
-      dispatch(authorizationStatus(true))
       localStorage.setItem('user', result[0][0])
       navigation('/')
     }
