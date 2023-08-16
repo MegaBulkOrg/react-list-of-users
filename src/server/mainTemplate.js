@@ -5,7 +5,7 @@ export const mainTemplate = (content) => `
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Моя WP5 сборка</title>
+            <title>List of users</title>
             <script defer src="/static/client.js"></script>
         </head>
         <body>
