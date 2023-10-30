@@ -19,7 +19,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     alias: {
       'Assets': path.resolve(__dirname, '../src/assets'),
-      'Store': path.resolve(__dirname, '../src/store'),
+      'Redux': path.resolve(__dirname, '../src/redux'),
       'Shared': path.resolve(__dirname, '../src/shared'),
       'Icons': path.resolve(__dirname, '../src/shared/icons')
     } 

@@ -6,3 +6,4 @@ export * from './LikeFalseIcon';
 export * from './LikeTrueIcon';
 export * from './LoadMoreIcon';
 export * from './PhoneIcon';
+export * from './ProfileIcon';

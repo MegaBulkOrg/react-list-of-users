@@ -1,0 +1,246 @@
+{
+  "users": [
+    {
+      "name": "John Smith",
+      "email": "johnsmith@example.com",
+      "phone": "+1-555-123-4567",
+      "avatar": "",
+      "password": "hG4sL8tRmF3nK7dJ9pQ2",
+      "role": "Marketing Manager",
+      "description": "John is an experienced marketing manager with a passion for creating innovative marketing campaigns that drive sales and increase brand awareness. He has worked with a variety of clients in different industries, including technology, healthcare, and retail. John is a creative thinker who enjoys collaborating with others to develop effective marketing strategies.",
+      "liked": false,
+      "id": 1
+    },
+    {
+      "name": "Emily Chen",
+      "email": "emilychen@example.com",
+      "phone": "+86-139-1234-5678",
+      "avatar": "",
+      "password": "sN8jL4xT9mF2kP7qR3",
+      "role": "Software Engineer",
+      "description": "Emily is a skilled software engineer with experience in developing web applications using modern technologies such as React and Node.js. She is passionate about writing clean, maintainable code and enjoys working on projects that challenge her problem-solving skills. Emily is a team player who values communication and collaboration.",
+      "liked": false,
+      "id": 2
+    },
+    {
+      "name": "Juan Rodriguez",
+      "email": "juanrodriguez@example.com",
+      "phone": "+52-55-1234-5678",
+      "avatar": "",
+      "password": "gJ6nF9sR5tK2pL8hQ3",
+      "role": "Sales Manager",
+      "description": "Juan is an experienced sales manager with a proven track record of driving revenue growth and building successful sales teams. He has worked in a variety of industries, including finance, real estate, and hospitality. Juan is a natural leader who is skilled at motivating and inspiring his team to achieve their goals.",
+      "liked": false,
+      "id": 3
+    },
+    {
+      "name": "Sophie Martin",
+      "email": "sophiemartin@example.com",
+      "phone": "+33-6-12-34-56-78",
+      "avatar": "",
+      "password": "rP9jS3kT5hL7nF2mQ8",
+      "role": "Graphic Designer",
+      "description": "Sophie is a talented graphic designer with experience in creating visual designs for print and digital media. She is passionate about typography, color theory, and layout design. Sophie enjoys collaborating with clients to understand their vision and create designs that exceed their expectations.",
+      "liked": false,
+      "id": 4
+    },
+    {
+      "name": "Hiroshi Nakamura",
+      "email": "hiroshinakamura@example.com",
+      "phone": "+81-3-1234-5678",
+      "avatar": "",
+      "password": "mF5tG9sR7jL2hN3kP8",
+      "role": "Product Manager",
+      "description": "Hiroshi is an experienced product manager with a background in software development. He has worked on a variety of products, from mobile apps to enterprise software. Hiroshi is passionate about understanding customer needs and developing products that solve their problems. He is a strategic thinker who enjoys working with cross-functional teams to deliver successful products.",
+      "liked": false,
+      "id": 5
+    },
+    {
+      "name": "Maria Sanchez",
+      "email": "mariasanchez@example.com",
+      "phone": "+52-55-1234-5678",
+      "avatar": "",
+      "password": "kL7hS3nF8mJ2pT9rQ5",
+      "role": "Human Resources Manager",
+      "description": "Maria is an experienced human resources manager with a passion for creating a positive work environment and developing talent. She has worked in a variety of industries, including healthcare, education, and technology. Maria is a skilled communicator who enjoys building relationships with employees and helping them achieve their career goals.",
+      "liked": false,
+      "id": 6
+    },
+    {
+      "name": "David Lee",
+      "email": "davidlee@example.com",
+      "phone": "+1-555-987-6543",
+      "avatar": "",
+      "password": "sK8dJ6nF4tR2mL9hQ7",
+      "role": "Financial Analyst",
+      "description": "David is a skilled financial analyst with experience in financial modeling and analysis, budgeting, and forecasting. He has worked in a variety of industries, including finance, technology, and healthcare. David is a detail-oriented thinker who enjoys working with data to uncover insights and drive business decisions.",
+      "liked": false,
+      "id": 7
+    },
+    {
+      "name": "Lena Kim",
+      "email": "lenakim@example.com",
+      "phone": "+82-2-1234-5678",
+      "avatar": "",
+      "password": "nF3mK7dJ5pT9rQ2sL8",
+      "role": "Marketing Coordinator",
+      "description": "Lena is a creative marketing coordinator with experience in developing marketing campaigns and managing social media channels. She has worked in a variety of industries, including fashion, beauty, and entertainment. Lena is a team player who enjoys collaborating with others to develop effective marketing strategies.",
+      "liked": false,
+      "id": 8
+    },
+    {
+      "name": "Thomas Johnson",
+      "email": "thomasjohnson@example.com",
+      "phone": "+44-20-1234-5678",
+      "avatar": "",
+      "password": "hN6sJ8tR4mF2kL9pQ7",
+      "role": "Operations Manager",
+      "description": "Thomas is an experienced operations manager with a background in logistics and supply chain management. He has worked in a variety of industries, including retail, manufacturing, and transportation. Thomas is a strategic thinker who enjoys optimizing processes and improving efficiency.",
+      "liked": false,
+      "id": 9
+    },
+    {
+      "name": "Marta Garcia",
+      "email": "martagarcia@example.com",
+      "phone": "+34-91-123-4567",
+      "avatar": "",
+      "password": "sK9jL6nF4tR2mP7qH3",
+      "role": "Customer Service Representative",
+      "description": "Marta is a friendly and empathetic customer service representative with experience in handling customer inquiries and resolving issues. She has worked in a variety of industries, including hospitality, retail, and telecommunications. Marta is a patient listener who enjoys helping customers find solutions to their problems.",
+      "liked": false,
+      "id": 10
+    },
+    {
+      "name": "Yusuke Tanaka",
+      "email": "yusuketanaka@example.com",
+      "phone": "+81-6-1234-5678",
+      "avatar": "",
+      "password": "pT7rQ5mF2kL8hJ9sN3",
+      "role": "Software Developer",
+      "description": "Yusuke is a skilled software developer with experience in developing web and mobile applications using modern technologies such as React Native and Angular. He is passionate about writing clean, maintainable code and enjoys working on projects that challenge his problem-solving skills. Yusuke is a team player who values communication and collaboration.",
+      "liked": false,
+      "id": 11
+    },
+    {
+      "name": "Anna Petrova",
+      "email": "annapetrova@example.com",
+      "phone": "+7-495-123-4567",
+      "avatar": "",
+      "password": "nF4tR7jL2hK9sP8mQ3",
+      "role": "Marketing Director",
+      "description": "Anna is an experienced marketing director with a track record of developing and executing successful marketing strategies. She has worked in a variety of industries, including finance, healthcare, and technology. Anna is a strategic thinker who enjoys analyzing market trends and identifying opportunities for growth.",
+      "liked": false,
+      "id": 12
+    },
+    {
+      "name": "Mohammed Ali",
+      "email": "mohammedali@example.com",
+      "phone": "+971-4-123-4567",
+      "avatar": "",
+      "password": "kL8hJ6nF4tR2mP7qS3",
+      "role": "Sales Executive",
+      "description": "Mohammed is a driven sales executive with experience in selling products and services to businesses and consumers. He has worked in a variety of industries, including technology, hospitality, and retail. Mohammed is a skilled communicator who enjoys building relationships with customers and closing deals.",
+      "liked": false,
+      "id": 13
+    },
+    {
+      "name": "Lucia Gomez",
+      "email": "luciagomez@example.com",
+      "phone": "+52-55-1234-5678",
+      "avatar": "",
+      "password": "tR4mF2kL7hJ9sN8pQ5",
+      "role": "Human Resources Coordinator",
+      "description": "Lucia is a detail-oriented human resources coordinator with experience in recruiting, onboarding, and employee relations. She has worked in a variety of industries, including healthcare, education, and technology. Lucia is a team player who enjoys collaborating with others to create a positive work environment.",
+      "liked": false,
+      "id": 14
+    },
+    {
+      "name": "Sara Ahmed",
+      "email": "saraahmed@example.com",
+      "phone": "+20-2-12345678",
+      "avatar": "",
+      "password": "jL6nF4tR2mK8hS9pQ3",
+      "role": "Marketing Specialist",
+      "description": "Sara is a creative marketing specialist with experience in developing content marketing strategies and managing social media channels. She has worked in a variety of industries, including fashion, beauty, and food. Sara is a skilled writer who enjoys crafting compelling stories that engage and inspire audiences.",
+      "liked": false,
+      "id": 15
+    },
+    {
+      "name": "Yuki Nakamura",
+      "email": "yukinakamura@example.com",
+      "phone": "+81-90-1234-5678",
+      "avatar": "",
+      "password": "sR2mF4tK7dJ9hL8pQ5",
+      "role": "Product Designer",
+      "description": "Yuki is a talented product designer with experience in designing user interfaces for web and mobile applications. She is passionate about creating intuitive and visually appealing designs that enhance the user experience. Yuki is a team player who values collaboration and feedback.",
+      "liked": false,
+      "id": 16
+    },
+    {
+      "name": "Carlos Rodriguez",
+      "email": "carlosrodriguez@example.com",
+      "phone": "+1-305-123-4567",
+      "avatar": "",
+      "password": "mF4tR2nJ6kL8hS9pQ5",
+      "role": "Business Development Manager",
+      "description": "Carlos is an experienced business development manager with a track record of identifying and pursuing new business opportunities. He has worked in a variety of industries, including finance, real estate, and technology. Carlos is a strategic thinker who enjoys building relationships with key stakeholders and negotiating deals.",
+      "liked": false,
+      "id": 17
+    },
+    {
+      "name": "Lea Dubois",
+      "email": "leadubois@example.com",
+      "phone": "+33-6-12-34-56-78",
+      "avatar": "",
+      "password": "rP9jS3kT5hL7nF2mQ8",
+      "role": "Content Writer",
+      "description": "Lea is a skilled content writer with experience in creating blog posts, articles, and other types of content for a variety of industries. She is passionate about writing clear and engaging copy that resonates with audiences. Lea is a team player who enjoys collaborating with others to create high-quality content.",
+      "liked": false,
+      "id": 18
+    },
+    {
+      "name": "Javier Hernandez",
+      "email": "javierhernandez@example.com",
+      "phone": "+52-55-1234-5678",
+      "avatar": "",
+      "password": "kL7hS3nF8mJ2pT9rQ5",
+      "role": "Operations Coordinator",
+      "description": "Javier is an organized operations coordinator with experience in logistics and supply chain management. He has worked in a variety of industries, including manufacturing, transportation, and retail. Javier is a problem solver who enjoys optimizing processes and improving efficiency.",
+      "liked": false,
+      "id": 19
+    },
+    {
+      "name": "Emma Wilson",
+      "email": "emmawilson@example.com",
+      "phone": "+44-20-1234-5678",
+      "avatar": "",
+      "password": "nF3mK7dJ5pT9rQ2sL8",
+      "role": "Graphic Design Coordinator",
+      "description": "Emma is a creative graphic design coordinator with experience in creating visual designs for print and digital media. She has worked in a variety of industries, including fashion, beauty, and entertainment. Emma is a team player who enjoys collaborating with others to develop effective designs that meet client needs.",
+      "liked": false,
+      "id": 20
+    },
+    {
+      "name": "Jin Woo Lee",
+      "email": "jinwoolee@example.com",
+      "phone": "+82-2-1234-5678",
+      "avatar": "",
+      "password": "sK8dJ6nF4tR2mL9hQ7",
+      "role": "Software Architect",
+      "description": "Jin Woo is a skilled software architect with experience in designing and developing complex software systems. He has worked in a variety of industries, including finance, healthcare, and technology. Jin Woo is a strategic thinker who enjoys working with cross-functional teams to deliver successful software projects.",
+      "liked": false,
+      "id": 21
+    },
+    {
+      "name": "Julia Martinez",
+      "email": "juliamartinez@example.com",
+      "phone": "+34-91-123-4567",
+      "avatar": "",
+      "password": "sK9jL6nF4tR2mP7qH3",
+      "role": "Recruiter",
+      "description": "Julia is an experienced recruiter with a passion for finding the right talent for the right job. She has worked in a variety of industries, including healthcare, education, and technology. Julia is a skilled communicator who enjoys building relationships with candidates and helping them achieve their career goals.",
+      "liked": false,
+      "id": 22
+    }
+  ]
+}

@@ -1,5 +1,4 @@
-.header
-    background-color: #512689
+@import '../../../global'
 
 .headerContainer,
 .usersListContainer
@@ -16,66 +15,8 @@
     display: flex
     flex-direction: column
     align-items: center
-    padding-top: 64px
+    padding-top: 85px
     padding-bottom: 64px
-
-.exitBtnDesktop
-    position: absolute
-    top: 40px
-    right: 90px
-    background: transparent
-    font-size: 16px
-    line-height: 22px
-    letter-spacing: 0em
-    color: #f8f8f8
-    padding: 8px 16px
-    border: 1px solid #f8f8f8
-    border-radius: 10px
-    cursor: pointer
-    transition-property: color, background
-    transition-duration: .3s
-    transition-timing-function: ease
-    @media (max-width:830px)
-        display: none
-
-.exitBtnDesktop:hover:not(:focus-visible),
-.exitBtnDesktop:focus-visible,
-.exitBtnDesktop:active:not(:focus-visible)
-    color: #512689
-    background: #f8f8f8
-
-.exitBtnMobile
-    display: none
-    position: absolute
-    top: 23px
-    right: 27px
-    background: transparent
-    border: none
-    cursor: pointer
-    @media (max-width:830px)
-        display: block
-
-.pageTitle
-    font-size: 64px
-    line-height: 75px
-    letter-spacing: 0em
-    text-align: center
-    color: #ffffff
-    @media (max-width:830px)
-        font-size: 36px
-        line-height: 42px
-
-.pageDescription
-    margin-top: 16px
-    max-width: 840px
-    font-size: 20px
-    line-height: 23px
-    letter-spacing: 0em
-    text-align: center
-    color: #f8f8f8
-    @media (max-width:830px)
-        font-size: 16px
-        line-height: 19px
 
 .usersListContainer
     padding-top: 48px

@@ -1,14 +1,17 @@
-import users from 'Assets/users.json';
-import { Icon } from 'Icons/Icon';
+import { useLazyCheckingUserByEmailQuery } from 'Redux/api/users';
+import { changeAuthStatus } from 'Redux/authSlice';
+import { useAppDispatch, useAppSelector } from 'Redux/hooks';
+import { Icon } from 'Shared/components/icons/Icon';
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './login.sass';
 
 export function Login() {
   // перенаправление на случай если пользователь уже в системе 
+  const authStatus = useAppSelector(state => state.auth.authorized);
   const navigation = useNavigate()
   useEffect(() => {
-    if (localStorage.getItem('user') !== null) navigation('/')
+    if (authStatus) navigation('/')
   },[])
 
   const [email, setEmail] = useState('')
@@ -16,9 +19,12 @@ export function Login() {
     
   const [firstSubmit, setFirstSubmit] = useState(false)
   
-  let result = []
-  // реф для глазика
-  const refPassword = useRef<HTMLInputElement>(null)
+  const [showEmailErrorMsg, setShowEmailErrorMsg] = useState(false)
+  const [showPasswordErrorMsg, setPasswordShowErrorMsg] = useState(false)
+
+  const [trigger, {isSuccess: emailCheckSuccess, isLoading: emailCheckLoading, isError: emailCheckError}] = useLazyCheckingUserByEmailQuery()
+  const dispatch = useAppDispatch()
+    
   // ловим значения полей
   function handleChangeEmail(event: ChangeEvent<HTMLInputElement>) {
     setEmail(event.target.value)
@@ -26,16 +32,27 @@ export function Login() {
   function handleChangePassword(event: ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value)
   }
+  
   // проверка формы
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault()
     setFirstSubmit(true) 
-    const asArray = Object.entries(users)
-    result = asArray.filter(user => {
-      return user[1].email === email && user[1].password === password 
-    })
-    if(result.length !== 0) {
-      localStorage.setItem('user', result[0][0])
+    const {data: users} = await trigger(email)
+    // если пользователь не найден
+    if (users?.length === 0) setShowEmailErrorMsg(true)
+    // если не подходит пароль
+    if (users?.length === 1 && users[0].password !== password) {
+      setShowEmailErrorMsg(false)
+      setPasswordShowErrorMsg(true)
+    }
+    // если проверка прошла
+    if (users?.length === 1 && users[0].password === password) {
+      setShowEmailErrorMsg(false)
+      setPasswordShowErrorMsg(false)
+      dispatch(changeAuthStatus({
+        authorized: true,
+        userId: users[0].id
+      }))
       navigation('/')
     }
   }
@@ -44,11 +61,12 @@ export function Login() {
   function goToSignUp() {
     navigation('/sign-up')
   }
-  // глазик для полей с паролем
+
+  // глазик для поля с паролем
+  const refPassword = useRef<HTMLInputElement>(null)
   enum EIcon {
     formEye = 'formEye'
   }
-  // функция для глазика
   function showPassword(field:HTMLInputElement | null) {
     if (field && field !== null) {
       field.type === 'password' ? field.type = 'text' : field.type = 'password'
@@ -57,9 +75,9 @@ export function Login() {
   
   return (        
     <main className='main'>
-      <section className={styles.login}>
-        <div className={styles.loginContainer}>    
-          <p className={styles.loginFormTitle}>Вход</p>
+      <section className={styles.formPage}>
+        <div className={styles.formPageContainer}>
+          <p className={styles.formPageFormTitle}>Вход</p>
           <form onSubmit={handleSubmit} autoComplete="on">
             
             <div className={styles.formGroup}>
@@ -67,8 +85,8 @@ export function Login() {
               <input type='email' value={email} 
                 className={firstSubmit ? styles.formControlError : styles.formControl} 
               id='inputEmail' placeholder='example@mail.ru' onChange={handleChangeEmail} required />
-              {firstSubmit &&
-                <p className={styles.formErrorMsg}>Возможно, Вы указали неправильный e-mail</p>
+              {showEmailErrorMsg &&
+                <p className={styles.formErrorMsg}>Пользователь с таким e-mail не найден</p>
               }
             </div>
             
@@ -78,8 +96,8 @@ export function Login() {
                 className={firstSubmit ? styles.formControlError : styles.formControl} 
               id='inputPassword' placeholder='******' onChange={handleChangePassword} required />
               <Icon name={EIcon.formEye} width={24} height={24} action={() => showPassword(refPassword.current)} />
-              {firstSubmit &&
-                <p className={styles.formErrorMsg}>Возможно, Вы указали неправильный пароль</p>
+              {showPasswordErrorMsg &&
+                <p className={styles.formErrorMsg}>Пароль не подходит</p>
               }
             </div>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BackIcon, EmailIcon, ExitIcon, FormEyeIcon, LikeFalseIcon, LikeTrueIcon, LoadMoreIcon, PhoneIcon } from '../AppIcons';
+import { BackIcon, EmailIcon, ExitIcon, FormEyeIcon, LikeFalseIcon, LikeTrueIcon, LoadMoreIcon, PhoneIcon, ProfileIcon } from '../AppIcons';
 
 interface IIcons {
     [K: string]: JSX.Element
@@ -13,7 +13,8 @@ const icons:IIcons = {
     likeTrue: <LikeTrueIcon/>,
     likeFalse: <LikeFalseIcon/>,
     loadMore: <LoadMoreIcon/>,
-    formEye: <FormEyeIcon/>
+    formEye: <FormEyeIcon/>,
+    profileIcon: <ProfileIcon />
 }
 
 interface IIconProps {

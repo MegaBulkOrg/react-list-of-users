@@ -1,11 +1,10 @@
-import { Icon } from 'Icons/Icon';
-import { GenericElements } from 'Shared/GenericElements';
-import { IUsersListElementProps, UsersListElement } from 'Shared/UsersListElement';
-import { RootState } from 'Store/store';
-import { usersRequestAsync } from 'Store/users';
+import { useLazyGetUsersListQuery } from 'Redux/api/users';
+import { IUser } from 'Redux/apiInterfaces';
+import { GenericElements } from 'Shared/components/GenericElements';
+import { HeaderBtns } from 'Shared/components/HeaderBtns';
+import { UsersListElement } from 'Shared/components/UsersListElement';
+import { Icon } from 'Shared/components/icons/Icon';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import styles from './users.sass';
 
 enum EIcon {
@@ -16,60 +15,31 @@ enum EIcon {
 }
 
 export function Users() {  
-  // проверка авторизации
-  const [isAuth, setIsAuth] = useState(false)
-  const navigation = useNavigate()
-  useEffect(() => {
-    localStorage.getItem('user') === null ? navigation('/login') :  setIsAuth(true)
-  },[isAuth])
-  
   // состояния  
-  const dispatch = useDispatch<any>()
   const [nextPageNo, setNextPageNo] = useState(1)
   const [loadingButtonAction, setLoadingButtonAction] = useState(true)
-  // состояния: массив для хранения всех результатов (изначальные + подруженные) и вывода их на экран
-  const [usersList, setUsersList] = useState<any[]>([])
+  const [usersList, setUsersList] = useState<IUser[]>([])
   
   // Redux
-  let response = useSelector<RootState, IUsersListElementProps[]>((state) => state.users.items)
-  const loading = useSelector<RootState, boolean>((state) => state.users.loading)
-  const error = useSelector<RootState, string>((state) => state.users.error)  
-  
-  // отправка запроса в Redux 
-  function load() {
-    dispatch(usersRequestAsync(nextPageNo))
+  const [trigger, {isSuccess: getUsersListSuccess, isLoading: getUsersListLoading, isError: getUsersListError}] = useLazyGetUsersListQuery()  
+  async function load() {
+    const {data: response} = await trigger(nextPageNo)    
+    if (response) setUsersList(prevChildren => prevChildren.concat(...response))
     setNextPageNo((prevPage) => prevPage + 1)
+    if (response && response.length === 0 && nextPageNo > 1) setLoadingButtonAction(false)
   }
   
   // первоначальная загрузка (при открытии страницы)
   useEffect(() => {
+    setUsersList([])
     load()
-    // эта очистка нужна чтобы не задваивались результаты после возврата к списку со страницы пользователя
-    // смысл: при возврате на страницу списка сначала данные попадают в response и только потом идет запрос из API и только тогда данные стираются, загружаются и снова попадают в response - таким образом они и задваиваются
-    response = []
   },[])
   
-  // добавление данных в массив который используется для отображения пользователей
-  useEffect(() => {
-    setUsersList(prevChildren => prevChildren.concat(...response))
-    // если больше нет результатов то и кнопка "показать еще" не нужна
-    if (response.length === 0 && nextPageNo > 1) setLoadingButtonAction(false)
-  }, [response])
-
-  function exit() {
-    localStorage.removeItem('user')
-    setIsAuth(false)
-  }
-
   return (
     <>
       <header className={styles.header}>      
         <div className={styles.headerContainer}>
-          {/* ВЫХОД */}
-          <button className={styles.exitBtnDesktop} onClick={exit}>Выход</button>
-          <button className={styles.exitBtnMobile} onClick={exit}>
-            <Icon name={EIcon.exit} width={18} height={18} />
-          </button>
+          <HeaderBtns />
           {/* ТЕКСТЫ */}
           <h1 className={styles.pageTitle}>Наша команда</h1>
           <p className={styles.pageDescription}>Это опытные специалисты, хорошо разбирающиеся во всех задачах, которые ложатся на их плечи, и умеющие находить выход из любых, даже самых сложных ситуаций. </p>
@@ -79,21 +49,21 @@ export function Users() {
         <section className={styles.usersList}>
           <div className={styles.usersListContainer}>
             {/* ОШИБКИ */}
-            {!loading && error !== '' && 
-              <p className={styles.info}>{error}</p>
+            {!getUsersListLoading && getUsersListError && 
+              <p className={styles.info}>Произошла ошибка</p>
             }
             {/* НЕТ РЕЗУЛЬТАТОВ */}
-            {!loading && error === '' && usersList.length === 0 && 
+            {!getUsersListLoading && !getUsersListError && usersList.length === 0 && 
                 <h4 className={styles.info}>К сожалению, пока нет ни одного пользователя. Зайдите позже. Вероятно, они появятся.</h4>
             }
             {/* КАРТОЧКИ */}
-            {usersList.length !== 0 && 
+            {getUsersListSuccess && usersList.length !== 0 && 
               <div className={styles.users}>
-                <GenericElements<IUsersListElementProps> list={usersList} Template={UsersListElement}/>
+                <GenericElements<IUser> list={usersList} Template={UsersListElement}/>
               </div>
             }
             {/* ЗАГРУЗКА */}
-            {loading && 
+            {getUsersListLoading && 
               <p className={styles.info} style={{marginTop: '56px'}}>Загрузка...</p>
             }
             {/* КНОПКА ЗАГРУЗКИ */}

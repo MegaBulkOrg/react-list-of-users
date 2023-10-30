@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface IGenericListProps<T> {
-  list: Array<T & {id: string}>
+  list: Array<T & {id: number}>
   Template: React.FC<T>
 }
 
