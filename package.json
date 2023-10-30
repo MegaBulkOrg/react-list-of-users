@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development PORT_HMR=3001 node ./bin/dev.js",
     "build": "cross-env NODE_ENV=production SITE=89.253.220.134 PORT=1000 webpack --config webpack.config.js",
     "start": "node ./app/server/server.js",
-    "server": "json-server -w ./src/redux/db.json -p 3002",
+    "server": "json-server -w ./src/redux/db.json -p 1002",
     "dev_server": "concurrently \"npm run server\" \"npm run dev\"",
     "prod_server": "concurrently \"npm run server\" \"npm run start\"",
     "test": "jest"

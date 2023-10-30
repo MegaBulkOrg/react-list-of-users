@@ -10,7 +10,7 @@ export const usersApi = createApi({
   reducerPath: 'usersApi',
   tagTypes: ['Users'],
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://${SITE}:3002/`
+    baseUrl: `http://${SITE}:1002/`
   }),
   endpoints: (build) => ({
     getUsersList: build.query<IUser[], number>({
