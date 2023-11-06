@@ -20,7 +20,7 @@
 
 - WebPack
 - React
-- Redux Thunk
+- Redux (Toolkit/ RTK Query/ Persist)
 - React Router
 - TypeScript
 - JSON Server
