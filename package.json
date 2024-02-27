@@ -7,12 +7,10 @@
     "dev_app": "cross-env NODE_ENV=development PORT_HMR=3001 node ./bin/dev.js",
     "dev_server": "json-server-auth ./src/db.json -r ./src/routes.json -p 3002",
     "dev": "concurrently \"npm run dev_server\" \"npm run dev_app\"",
- 
     "prod_build": "cross-env NODE_ENV=production SITE=89.253.220.134 PORT=1000 webpack --config webpack.config.js",
     "prod_app": "node ./app/server/server.js",
     "prod_server": "json-server-auth ./src/db.json -r ./src/routes.json -H 89.253.220.134 -p 1002",
     "prod": "concurrently \"npm run prod_server\" \"npm run prod_app\"",
- 
     "test": "jest"
   },
   "author": "BaoLuo <ceo@megabulk.ru>",
@@ -23,6 +21,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "compression": "^1.7.4",
     "concurrently": "^8.2.1",
+    "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.3",
     "csv-loader": "^3.0.5",

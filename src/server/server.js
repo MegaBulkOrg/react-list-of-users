@@ -1,4 +1,5 @@
 import compression from "compression";
+import cors from "cors";
 import express from "express";
 import fileUpload from 'express-fileupload';
 import helmet from "helmet";
@@ -22,6 +23,7 @@ const AVATARS_DIRNAME = 'avatars';
 const app = express();
 
 if (process.env.NODE_ENV === "production") {
+  app.use(cors());
   app.use(compression());
   app.use(
     helmet({
