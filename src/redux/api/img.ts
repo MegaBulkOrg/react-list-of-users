@@ -14,11 +14,7 @@ const PORT =
 export const uploadApi = createApi({
   reducerPath: 'uploadApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://${SITE}:${PORT}`,
-    prepareHeaders: (headers) => {
-      // headers.set('Access-Control-Allow-Origin', '*')
-      headers.set('Access-Control-Allow-Origin', 'http://react.megabulk.ru:1000')
-    }
+    baseUrl: `http://${SITE}:${PORT}`
   }),
   endpoints: (build) => ({
     uploadAvatar: build.mutation<IUploadAvatarResponse, FormData>({
