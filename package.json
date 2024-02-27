@@ -10,7 +10,7 @@
  
     "prod_build": "cross-env NODE_ENV=production SITE=89.253.220.134 PORT=1000 webpack --config webpack.config.js",
     "prod_app": "node ./app/server/server.js",
-    "prod_server": "json-server -w ./src/db.json -H 89.253.220.134 -p 1002",
+    "prod_server": "json-server-auth ./src/db.json -r ./src/routes.json -H 89.253.220.134 -p 3002",
     "prod": "concurrently \"npm run prod_server\" \"npm run prod_app\"",
  
     "test": "jest"
