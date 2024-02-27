@@ -14,7 +14,10 @@ const PORT =
 export const uploadApi = createApi({
   reducerPath: 'uploadApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://${SITE}:${PORT}`
+    baseUrl: `http://${SITE}:${PORT}`,
+    prepareHeaders: (headers) => {
+      headers.set('Access-Control-Allow-Origin', '*')
+    }
   }),
   endpoints: (build) => ({
     uploadAvatar: build.mutation<IUploadAvatarResponse, FormData>({
