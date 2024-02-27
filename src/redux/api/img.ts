@@ -16,7 +16,7 @@ export const uploadApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `http://${SITE}:${PORT}`,
     prepareHeaders: (headers) => {
-      headers.set('Access-Control-Allow-Origin', '*')
+      headers.set('Access-Control-Allow-Origin', 'http://react.megabulk.ru:1000')
     }
   }),
   endpoints: (build) => ({
