@@ -1,35 +1,31 @@
 import { useLazyGetUsersListQuery } from 'Redux/api/users';
-import { IUser } from 'Redux/apiInterfaces';
+import { IUserInfo } from 'Redux/apiInterfaces';
+import { useAppSelector } from 'Redux/hooks';
 import { GenericElements } from 'Shared/components/GenericElements';
 import { HeaderBtns } from 'Shared/components/HeaderBtns';
 import { UsersListElement } from 'Shared/components/UsersListElement';
 import { Icon } from 'Shared/components/icons/Icon';
+import { EIcon } from 'Shared/components/icons/enums';
 import React, { useEffect, useState } from 'react';
 import styles from './users.sass';
-
-enum EIcon {
-  exit = 'exit',
-  likeTrue = 'likeTrue',
-  likeFalse = 'likeFalse',
-  loadMore = 'loadMore'
-}
 
 export function Users() {  
   // состояния  
   const [nextPageNo, setNextPageNo] = useState(1)
   const [loadingButtonAction, setLoadingButtonAction] = useState(true)
-  const [usersList, setUsersList] = useState<IUser[]>([])
+  const [usersList, setUsersList] = useState<IUserInfo[]>([])
   
   // Redux
   const [trigger, {isSuccess: getUsersListSuccess, isLoading: getUsersListLoading, isError: getUsersListError}] = useLazyGetUsersListQuery()  
   async function load() {
-    const {data: response} = await trigger(nextPageNo)    
+    const {data: response} = await trigger(nextPageNo)
     if (response) setUsersList(prevChildren => prevChildren.concat(...response))
-    setNextPageNo((prevPage) => prevPage + 1)
+    setNextPageNo(prevPage => prevPage + 1)
     if (response && response.length === 0 && nextPageNo > 1) setLoadingButtonAction(false)
   }
   
   // первоначальная загрузка (при открытии страницы)
+  const accessToken = useAppSelector(state => state.auth.accessToken)
   useEffect(() => {
     setUsersList([])
     load()
@@ -37,7 +33,7 @@ export function Users() {
   
   return (
     <>
-      <header className={styles.header}>      
+      <header className={styles.header}>
         <div className={styles.headerContainer}>
           <HeaderBtns />
           {/* ТЕКСТЫ */}
@@ -59,7 +55,7 @@ export function Users() {
             {/* КАРТОЧКИ */}
             {getUsersListSuccess && usersList.length !== 0 && 
               <div className={styles.users}>
-                <GenericElements<IUser> list={usersList} Template={UsersListElement}/>
+                <GenericElements<IUserInfo> list={usersList} Template={UsersListElement}/>
               </div>
             }
             {/* ЗАГРУЗКА */}

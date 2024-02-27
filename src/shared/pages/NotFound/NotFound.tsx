@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './notfound.sass';
 
 export function NotFound() {
-  return (    
+  return (
     <>
       <header className={styles.header}>      
         <div className={styles.headerContainer}>

@@ -1,60 +1,73 @@
-import { useLazyCheckingUserByEmailQuery } from 'Redux/api/users';
+import { useSigninMutation } from 'Redux/api/users';
 import { changeAuthStatus } from 'Redux/authSlice';
-import { useAppDispatch, useAppSelector } from 'Redux/hooks';
+import { useAppDispatch } from 'Redux/hooks';
 import { Icon } from 'Shared/components/icons/Icon';
-import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import { EIcon } from 'Shared/components/icons/enums';
+import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './login.sass';
 
 export function Login() {
-  // перенаправление на случай если пользователь уже в системе 
-  const authStatus = useAppSelector(state => state.auth.authorized);
   const navigation = useNavigate()
-  useEffect(() => {
-    if (authStatus) navigation('/')
-  },[])
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-    
-  const [firstSubmit, setFirstSubmit] = useState(false)
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  })
   
-  const [showEmailErrorMsg, setShowEmailErrorMsg] = useState(false)
-  const [showPasswordErrorMsg, setPasswordShowErrorMsg] = useState(false)
+  const [formCheckSettings, setFormCheckSettings] = useState({
+    firstSubmit: false,
+    emailFieldError: false,
+    passwordFieldError: false
+  })
 
-  const [trigger, {isSuccess: emailCheckSuccess, isLoading: emailCheckLoading, isError: emailCheckError}] = useLazyCheckingUserByEmailQuery()
+  // для отправки формы
+  const [signin] = useSigninMutation()
+
+  // для записи в Redux токена
   const dispatch = useAppDispatch()
-    
-  // ловим значения полей
-  function handleChangeEmail(event: ChangeEvent<HTMLInputElement>) {
-    setEmail(event.target.value)
+
+  // получение значений полей
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value
+    })
   }
-  function handleChangePassword(event: ChangeEvent<HTMLInputElement>) {
-    setPassword(event.target.value)
+
+  // изменение объекта проверки
+  const formCheckSettingsChange = (name:string, value:boolean) => {
+    setFormCheckSettings((prevState) =>  {
+      return {...prevState,[name]: value}
+    })
   }
-  
-  // проверка формы
-  async function handleSubmit(event: FormEvent) {
+
+  // отправка формы и поиск данного пользователя
+  function handleSubmit(event: FormEvent) {
     event.preventDefault()
-    setFirstSubmit(true) 
-    const {data: users} = await trigger(email)
-    // если пользователь не найден
-    if (users?.length === 0) setShowEmailErrorMsg(true)
-    // если не подходит пароль
-    if (users?.length === 1 && users[0].password !== password) {
-      setShowEmailErrorMsg(false)
-      setPasswordShowErrorMsg(true)
-    }
-    // если проверка прошла
-    if (users?.length === 1 && users[0].password === password) {
-      setShowEmailErrorMsg(false)
-      setPasswordShowErrorMsg(false)
-      dispatch(changeAuthStatus({
-        authorized: true,
-        userId: users[0].id
-      }))
-      navigation('/')
-    }
+    if (!formCheckSettings.firstSubmit) formCheckSettingsChange('firstSubmit', true)
+    signin({
+      email: form.email,
+      password: form.password
+    }).unwrap()
+      .then(payload => {
+        dispatch(changeAuthStatus({
+          accessToken: payload.accessToken,
+          authedUserId: payload.user.id
+        }))
+        formCheckSettingsChange('emailFieldError', false)
+        formCheckSettingsChange('passwordFieldError', false)
+      })
+      .catch(error => {
+        if (error.data === 'Cannot find user') {
+          formCheckSettingsChange('emailFieldError', true)
+          formCheckSettingsChange('passwordFieldError', false)
+        }
+        if (error.data === 'Incorrect password') {
+          formCheckSettingsChange('emailFieldError', false)
+          formCheckSettingsChange('passwordFieldError', true)
+        }
+      })
   }
     
   // функция для кнопки перехода на страницу регистрации
@@ -64,16 +77,13 @@ export function Login() {
 
   // глазик для поля с паролем
   const refPassword = useRef<HTMLInputElement>(null)
-  enum EIcon {
-    formEye = 'formEye'
-  }
   function showPassword(field:HTMLInputElement | null) {
     if (field && field !== null) {
       field.type === 'password' ? field.type = 'text' : field.type = 'password'
     }
   }
   
-  return (        
+  return (
     <main className='main'>
       <section className={styles.formPage}>
         <div className={styles.formPageContainer}>
@@ -82,21 +92,19 @@ export function Login() {
             
             <div className={styles.formGroup}>
               <label htmlFor='inputEmail' className={styles.formLabel}>E-mail</label>
-              <input type='email' value={email} 
-                className={firstSubmit ? styles.formControlError : styles.formControl} 
-              id='inputEmail' placeholder='example@mail.ru' onChange={handleChangeEmail} required />
-              {showEmailErrorMsg &&
+              <input type='email' name='email' value={form.email} className={formCheckSettings.firstSubmit && formCheckSettings.emailFieldError ? styles.formControlError : styles.formControl} id='inputEmail' placeholder='example@mail.ru' onChange={handleChange} required />
+              {formCheckSettings.emailFieldError &&
                 <p className={styles.formErrorMsg}>Пользователь с таким e-mail не найден</p>
               }
             </div>
             
             <div className={styles.formGroup}>
               <label htmlFor='inputPassword' className={styles.formLabel}>Пароль</label>
-              <input type='password' value={password} ref={refPassword} autoComplete='on'
-                className={firstSubmit ? styles.formControlError : styles.formControl} 
-              id='inputPassword' placeholder='******' onChange={handleChangePassword} required />
+              <input type='password' name='password' value={form.password} ref={refPassword} autoComplete='on' 
+                className={formCheckSettings.firstSubmit && formCheckSettings.passwordFieldError ? styles.formControlError : styles.formControl} 
+              id='inputPassword' placeholder='******' onChange={handleChange} required />
               <Icon name={EIcon.formEye} width={24} height={24} action={() => showPassword(refPassword.current)} />
-              {showPasswordErrorMsg &&
+              {formCheckSettings.passwordFieldError &&
                 <p className={styles.formErrorMsg}>Пароль не подходит</p>
               }
             </div>

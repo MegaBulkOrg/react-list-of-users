@@ -1,25 +1,22 @@
 import { changeAuthStatus } from 'Redux/authSlice';
-import { useAppDispatch, useAppSelector } from 'Redux/hooks';
-import React, { useEffect, useState } from 'react';
+import { useAppDispatch } from 'Redux/hooks';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../../global.sass';
 import { Icon } from '../icons/Icon';
+import { EIcon } from '../icons/enums';
 
 export function HeaderBtns() {
-    // авторизация
-    const authStatus = useAppSelector(state => state.auth.authorized);
-    const [isAuth, setIsAuth] = useState(false) 
+    const dispatch = useAppDispatch()
     const navigation = useNavigate()
-    useEffect(() => {
-        authStatus ? setIsAuth(true) : navigation('/login')
-    },[isAuth])  
-    const dispatch = useAppDispatch();
+    
+    // перенаправление на форму логина при выходе
     function exit() {
         dispatch(changeAuthStatus({
-        authorized: false,
-        userId: null
-      }))
-        setIsAuth(false)
+            accessToken: null,
+            authedUserId: null
+        }))
+        navigation('/login')
     }
     
     // перенаправление на Главную
@@ -30,14 +27,6 @@ export function HeaderBtns() {
     // перенаправление на редактирование профиля
     function editProfile() {
         navigation('/users/edit-profile')
-    }
-
-    // значки
-    enum EIcon {
-        exit = 'exit',
-        back = 'back',
-        formEye = 'formEye',
-        profileIcon = 'profileIcon'
     }
 
     return (

@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TAuth = {
-    authorized: boolean;
-    userId: number | null
+    accessToken?: string | null
+    authedUserId?: number | null
+    regToken?: string | null
 }
 
 const initialState: TAuth = {
-    authorized: false,
-    userId: null
+    accessToken: null,
+    authedUserId: null,
+    regToken: null
 }
 
 export const authSlice = createSlice({
@@ -15,11 +17,14 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         changeAuthStatus(state, action: PayloadAction<TAuth>){
-            state.authorized = action.payload.authorized
-            state.userId = action.payload.userId
+            state.accessToken = action.payload.accessToken
+            state.authedUserId = action.payload.authedUserId
         },
+        changeRegStatus(state, action: PayloadAction<TAuth>){
+            state.regToken = action.payload.regToken
+        }
     }
 })
 
-export const { changeAuthStatus } = authSlice.actions
+export const { changeAuthStatus, changeRegStatus } = authSlice.actions
 export default authSlice.reducer

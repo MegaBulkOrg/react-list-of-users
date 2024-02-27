@@ -1,47 +1,16 @@
 import nophoto from 'Assets/avatars/_no-photo.jpg';
-import { useGetCurrentUserQuery } from 'Redux/api/users';
+import { useGetCurrentUserEmailQuery, useGetCurrentUserQuery, } from 'Redux/api/users';
 import { HeaderBtns } from 'Shared/components/HeaderBtns';
 import { Icon } from 'Shared/components/icons/Icon';
-import React, { useEffect, useState } from 'react';
+import { EIcon } from 'Shared/components/icons/enums';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './userinfo.sass';
 
 export function UserInfo() {  
   const { user } = useParams()
-  
-  const {data: userInfo = {
-    name: "",
-    email: "",
-    phone: "",
-    avatar: "",
-    password: "",
-    role: "",
-    description: "",
-    liked: false,
-    id: null
-  }, isLoading, isError, isSuccess } = useGetCurrentUserQuery(Number(user))
-
-  // для того чтобы можно было использовать динамический импорт в tsconfig.json 
-  //    было задано новое значение настройке module: вместо es2015 поставил es2022
-  // функция асинхронная потому что без этого не работает свойство default, 
-  //    а оно нужно для доступа к экспорту модуля с картинкой
-  // изначально просто была функция которая получала картинку и затем возвращала
-  //    свойство default этой картинки, но она не работала так как в атрибут
-  //    src попадало значение [object Promise] - поэтому пришлось сделать решение на хуках
-  //    при этом зависимость userInfo.avatar является ключевым моментом в этом решении
-  const [image, setImage] = useState('');
-  useEffect(() => {
-      async function getAvatar() { 
-        const img = await import(`Assets/${userInfo.avatar}`);
-        setImage(img.default)
-      }
-      getAvatar()
-  }, [userInfo.avatar]);
-
-  enum EIcon {
-    phone = 'phone',
-    email = 'email'
-  }
+  const {data: userInfo, isError, isSuccess } = useGetCurrentUserQuery(Number(user))
+  const {data: addUserInfo} = useGetCurrentUserEmailQuery(Number(user))
 
   return (
     <>
@@ -51,7 +20,7 @@ export function UserInfo() {
           {isSuccess && 'id' in userInfo &&
             <>
               <div className={styles.userAvatar}>
-                <img src={userInfo.avatar ? image : nophoto} alt={userInfo.name} />
+                <img src={userInfo.avatar ? `/assets/${userInfo.avatar}` : nophoto} alt={userInfo.name} />
               </div>
               <div className={styles.userHeader}>
                 <h1 className={styles.userName}>{userInfo.name}</h1>
@@ -78,7 +47,7 @@ export function UserInfo() {
                 </p>
                 <p>
                   <Icon name={EIcon.email} width={21} height={15} />
-                  {userInfo.email}
+                  {addUserInfo?.email}
                 </p>
               </div>
             </div>

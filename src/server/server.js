@@ -32,6 +32,8 @@ if (process.env.NODE_ENV === "production") {
 
 app.use("/static", express.static("./app/client"));
 
+app.use("/assets", express.static("./src/assets"));
+
 app.post("/upload-avatar", fileUpload({
   createParentPath: true,
 }), (req, res) => {
