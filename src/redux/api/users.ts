@@ -11,7 +11,7 @@ export const usersApi = createApi({
   reducerPath: 'usersApi',
   tagTypes: ['Users'],
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://${SITE}:3002/`,
+    baseUrl: `http://${SITE}:1002/`,
     prepareHeaders: (headers, { getState }) => {
       const authToken = (getState() as RootState).auth.accessToken
       const regToken = (getState() as RootState).auth.regToken
