@@ -1,5 +1,5 @@
 import { useUploadAvatarMutation } from 'Redux/api/img';
-import { useGetCurrentUserEmailQuery, useGetCurrentUserQuery, useLazyGetUserByEmailQuery, useUpdateUserMutation } from 'Redux/api/users';
+import { useGetCurrentUserEmailQuery, useGetCurrentUserQuery, useLazyGetUserByEmailQuery, useUpdateUserEmailMutation, useUpdateUserMutation } from 'Redux/api/users';
 import { IGetNewAvatarPath } from 'Redux/apiInterfaces';
 import { useAppSelector } from 'Redux/hooks';
 import { HeaderBtns } from 'Shared/components/HeaderBtns';
@@ -121,8 +121,9 @@ export function EditProfile() {
 
     // для проверки email на дубли
     const [duplicatedEmailCheck] = useLazyGetUserByEmailQuery()
-    // для отправки формы
+    // для обновления данных
     const [updateUser, {isSuccess: updateUserSuccess}] = useUpdateUserMutation()
+    const [updateUserEmail, {isSuccess: updateUserEmailSuccess}] = useUpdateUserEmailMutation()
     // для отправки аватара
     const [uploadAvatar] = useUploadAvatarMutation()
 
@@ -181,20 +182,17 @@ export function EditProfile() {
         // проверка поля с email - валидация
         const emailRegEx = /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u
         formVerifiedChange('emailVerified', emailRegEx.test(form.email))
-
         // проверка поля с email - дубли
         const {data: duplicatedEmailCheckResponse} = await duplicatedEmailCheck(form.email)
         // -- вариант когда ввели новый email
         if (duplicatedEmailCheckResponse?.length === 0) formVerifiedChange('duplicatedEmailVerified', true)
         // -- вариант когда email остался прежний
-        if (duplicatedEmailCheckResponse?.length === 1 && duplicatedEmailCheckResponse[0].email === form.email) formVerifiedChange('duplicatedEmailVerified', true)        
+        if (duplicatedEmailCheckResponse?.length === 1 && duplicatedEmailCheckResponse[0].email === addUserInfo.email) formVerifiedChange('duplicatedEmailVerified', true)
         // -- вариант когда введен чужой email
-        if (duplicatedEmailCheckResponse?.length === 1 && duplicatedEmailCheckResponse[0].email !== form.email) formVerifiedChange('duplicatedEmailVerified', false)
-
+        if (duplicatedEmailCheckResponse?.length === 1 && duplicatedEmailCheckResponse[0].email !== addUserInfo.email) formVerifiedChange('duplicatedEmailVerified', false)
         // проверка поля с телефоном
         const phoneRegEx = /^\+\d+(-\d+)*$/
         formVerifiedChange('phoneVerified', phoneRegEx.test(form.phone))
-
         // проверка поля с паролем пока не работает так как смена пароля в рамках использования json-server-auth не реализована
         // password.length < 6 || /\s/.test(password) || /[а-яёА-ЯЁ]/.test(password) ? setPasswordVerified(false) : setPasswordVerified(true)
         // проверку полей с аватаром, ролью и описанием не стал делать
@@ -227,6 +225,10 @@ export function EditProfile() {
                             description: form.description
                         }
                     })
+                    updateUserEmail({
+                        id: userInfo.id || 0,
+                        body: {email: form.email}
+                    })
                 // если не стал менять аватар
                 } else {
                     updateUser({
@@ -239,8 +241,12 @@ export function EditProfile() {
                             description: form.description
                         }
                     })
+                    updateUserEmail({
+                        id: userInfo.id || 0,
+                        body: {email: form.email}
+                    })
                 }
-                // ставим дефолтные значения полей стейта проверки чтобы можно было повторно отправлять форму (даже если значения полей не изменились)                
+                // ставим дефолтные значения полей у formVerified чтобы можно было повторно отправлять форму (даже если значения полей не изменились)
                 setFormVerified({
                     firstSubmit: false,
                     nameVerified: false,
@@ -358,7 +364,7 @@ export function EditProfile() {
                                 <textarea value={form.description} name='description' className={styles.formControl} id='inputDescription' rows={5} placeholder='Характеристика сотрудника' onChange={handleChangeDescription} />
                             </div>
 
-                            {updateUserSuccess && <p className={styles.formSuccessMsgBig}>Данные обновлены</p>}
+                            {updateUserSuccess && updateUserEmailSuccess && <p className={styles.formSuccessMsgBig}>Данные обновлены</p>}
 
                             <button type='submit' className={styles.formSubmit}>Сохранить</button>
                         </form>

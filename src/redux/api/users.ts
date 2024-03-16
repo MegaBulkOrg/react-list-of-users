@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'Redux/store';
-import { IAuthRequest, IAuthResponse, IUpdateUserArgs, IUserAddInfoResponse, IUserCreate, IUserInfo } from '../apiInterfaces';
+import { IAuthRequest, IAuthResponse, IUpdateUserArgs, IUpdateUserEmailArgs, IUserAddInfoResponse, IUserCreate, IUserInfo } from '../apiInterfaces';
 
 const SITE =
   process.env.SITE === "undefined" || process.env.SITE === undefined
@@ -70,6 +70,14 @@ export const usersApi = createApi({
       }),
       invalidatesTags: [{ type: 'Users', id: 'LIST' }]
     }),
+    updateUserEmail: build.mutation<IUserAddInfoResponse, IUpdateUserEmailArgs>({
+      query: (args) => ({
+        url: `users/${args.id}`,
+        method: 'PATCH',
+        body: args.body
+      }),
+      invalidatesTags: [{ type: 'Users', id: 'LIST' }]
+    }),
     // для проверки email на дубли при его изменении
     getUserByEmail: build.query<IUserAddInfoResponse[], string>({
       query: (email) => ({
@@ -88,5 +96,6 @@ export const {
   useSignupMutation,
   useCreateNewUserInfoMutation,
   useUpdateUserMutation,
+  useUpdateUserEmailMutation,
   useLazyGetUserByEmailQuery
 } = usersApi

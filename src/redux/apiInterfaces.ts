@@ -54,6 +54,14 @@ export interface IUpdateUserArgs {
     body: IUpdateUserRequestBody
 }
 
+interface IUpdateUserEmailRequestBody {
+    email: string
+}
+export interface IUpdateUserEmailArgs {
+    id: number
+    body: IUpdateUserEmailRequestBody
+}
+
 export interface IUploadAvatarResponse {
     avatar: string;
 }
